@@ -8,7 +8,8 @@ import { Navbar } from "../components/modules/navbar";
 import { Footer } from "../components/modules/footer";
 import { Pricing } from "../components/modules/pricing";
 import { Questions } from "../components/modules/questions";
-import { Dashboard } from "../components/modules/dashboard";
+import { Process } from "../components/modules/process";
+import { Testimonials } from "../components/modules/testimonials";
 import {
   ArrowRight, BarChart3, Command, Database, Lock, ChevronRight
 } from "lucide-react";
@@ -19,9 +20,10 @@ export default function Home() {
       <Navbar />
       <main className="overflow-x-hidden">
         <Hero />
-        {/* <Dashboard />
-        <Pricing />
-        <Questions /> */}
+        {/* <Testimonials /> */}
+        <Process />
+        {/* <Pricing /> */}
+        <Questions />
       </main>
       <Footer />
     </div>

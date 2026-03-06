@@ -7,36 +7,36 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const crmQuestions = [
+const lendingQuestions = [
   {
-    question: "What is Arkview CRM?",
+    question: "What is a lending broker?",
     answer:
-      "Arkview is a B2B CRM built for revenue teams. It centralizes your pipeline, contacts, and activity in one place and gives you dashboards for forecasting, win rates, and deal hygiene so you can close more predictably.",
+      "We connect businesses with lenders that fit their needs. As a broker, we don't lend directly—we help you compare options, complete one application, and get matched with the right funding so you can focus on running your business instead of shopping around.",
   },
   {
-    question: "How does pricing work?",
+    question: "What types of funding do you offer?",
     answer:
-      "Starter is free forever for up to 3 users. Team is $29 per user per month with advanced dashboards, API access, and priority support. Enterprise is custom pricing with SSO, dedicated success, and SLA—contact sales for a quote.",
+      "We work with a range of lenders to offer term loans, lines of credit, equipment financing, and other business funding. Amounts and terms depend on your business profile and the lender. We'll match you with options that make sense for your situation.",
   },
   {
-    question: "Can I import my existing data?",
+    question: "How long does it take to get funded?",
     answer:
-      "Yes. You can import contacts, accounts, and deals via CSV or our API. We support migrations from Salesforce, HubSpot, Pipedrive, and other CRMs. Our team can help with a one-time migration plan on Team and Enterprise.",
+      "Many applicants get a decision within 24–48 hours. Once approved, funding can land in your account in as little as a few days, depending on the product and lender. We'll keep you updated at each step.",
   },
   {
-    question: "Is my data secure?",
+    question: "Will applying affect my credit score?",
     answer:
-      "We’re SOC 2 Type II compliant and use encryption in transit and at rest. You get granular RBAC, audit logs, and optional regional data residency. Enterprise plans can add SSO/SAML and stricter compliance controls.",
+      "Checking your rate or starting an application typically uses a soft inquiry, which does not impact your personal credit score. If you move forward with a specific lender, they may run a hard pull—we'll explain before that happens.",
   },
   {
-    question: "What integrations do you support?",
+    question: "What do I need to apply?",
     answer:
-      "We integrate with email (Gmail, Outlook), calendar, and popular tools via API and webhooks. Enterprise includes custom integrations and a dedicated success manager to align with your stack.",
+      "You'll need basic business details (name, industry, time in business, revenue), ownership information, and sometimes bank or financial statements. We only ask for what's needed to match you with the right options.",
   },
   {
-    question: "Can I try it before committing?",
+    question: "Is there a fee to use your service?",
     answer:
-      "Yes. Start a free trial on Team—no credit card required. You get full access for 14 days. For a guided walkthrough and custom migration plan, book a demo with our team.",
+      "There is no upfront fee to apply or check your options through us. If you accept an offer from a lender we connect you with, that lender may charge interest and/or fees as disclosed in your agreement—we're transparent about how we're compensated.",
   },
 ];
 
@@ -48,10 +48,10 @@ export function Questions() {
           Frequently asked questions
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-center text-zinc-500">
-          Everything you need to know about Arkview CRM.
+          Everything you need to know about business funding and how we work.
         </p>
         <Accordion type="single" collapsible className="mt-12">
-          {crmQuestions.map((item, i) => (
+          {lendingQuestions.map((item, i) => (
             <AccordionItem key={i} value={`item-${i}`}>
               <AccordionTrigger className="text-left text-base font-semibold text-zinc-900 hover:no-underline">
                 {item.question}
