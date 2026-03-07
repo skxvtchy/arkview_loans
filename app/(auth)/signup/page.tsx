@@ -1,5 +1,6 @@
 "use client"
 
+import { Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { motion } from "framer-motion"
 import { GalleryVerticalEnd } from "lucide-react"
@@ -48,7 +49,7 @@ const HeroContent = () => {
   )
 }
 
-export default function SignupPage() {
+function SignupPageInner() {
   const searchParams = useSearchParams()
   const email = searchParams.get("email") ?? undefined
 
@@ -98,5 +99,26 @@ export default function SignupPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function SignupFallback() {
+  return (
+    <div className="grid min-h-svh lg:grid-cols-2 overflow-hidden">
+      <div className="relative hidden lg:block min-h-svh bg-zinc-100" />
+      <div className="relative flex flex-col gap-4 overflow-hidden p-6 md:p-10">
+        <div className="relative flex flex-1 items-center justify-center min-h-[50vh]">
+          <div className="h-10 w-24 animate-pulse rounded-lg bg-zinc-200" aria-hidden />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<SignupFallback />}>
+      <SignupPageInner />
+    </Suspense>
   )
 }
