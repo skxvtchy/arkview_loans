@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, memo } from "react"
+import { useState, useCallback, memo, Suspense } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { Star, Shield, ExternalLink, ChevronDown } from "lucide-react"
@@ -589,7 +589,7 @@ const YesNoGroupCard = memo(function YesNoGroupCard({
   )
 })
 
-export default function BusinessFundingPage() {
+function BusinessFundingPageInner() {
   const searchParams = useSearchParams()
   const email = searchParams.get("email") ?? undefined
 
@@ -784,5 +784,33 @@ export default function BusinessFundingPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function OnboardingFallback() {
+  return (
+    <div className="relative min-h-svh">
+      <div className="fixed inset-0 -z-10">
+        <Iridescence color={[1, 1, 1]} speed={0.5} amplitude={0.5} mouseReact={false} />
+      </div>
+      <div className="relative mx-auto flex min-h-svh max-w-3xl flex-col px-4 py-6 md:px-8">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="text-xl font-bold tracking-tighter text-black">
+            ARKVIEW
+          </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-center mt-20">
+          <div className="h-12 w-12 animate-pulse rounded-2xl bg-zinc-200" aria-hidden />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function BusinessFundingPage() {
+  return (
+    <Suspense fallback={<OnboardingFallback />}>
+      <BusinessFundingPageInner />
+    </Suspense>
   )
 }
