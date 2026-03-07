@@ -191,7 +191,6 @@ const questions: {
       { value: "660-719", label: "660–719" },
       { value: "600-659", label: "600–659" },
       { value: "<600", label: "Below 600" },
-      { value: "not_sure", label: "Not sure" },
     ],
     required: true,
   },
@@ -264,7 +263,7 @@ const MonthYearPicker = memo(function MonthYearPicker({
         <button
           type="button"
           onClick={() => { setMonthOpen((o) => !o); setYearOpen(false) }}
-          className={`flex h-[52px] w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm text-zinc-900 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+          className={`flex h-[52px] w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm font-medium text-zinc-900 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
             monthLabel ? "border-blue-500 bg-blue-50/50" : "border-zinc-200 bg-white hover:border-zinc-300"
           }`}
         >
@@ -278,8 +277,8 @@ const MonthYearPicker = memo(function MonthYearPicker({
                 key={month}
                 type="button"
                 onClick={() => handleMonth(i)}
-                className={`w-full px-4 py-3 text-left text-sm transition-colors hover:bg-blue-50 ${
-                  monthLabel === month ? "bg-blue-50 font-medium text-blue-900" : "text-zinc-900"
+                className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
+                  monthLabel === month ? "bg-blue-50 text-blue-900" : "text-zinc-900"
                 }`}
               >
                 {month}
@@ -293,7 +292,7 @@ const MonthYearPicker = memo(function MonthYearPicker({
         <button
           type="button"
           onClick={() => { setYearOpen((o) => !o); setMonthOpen(false) }}
-          className={`flex h-[52px] w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm text-zinc-900 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+          className={`flex h-[52px] w-full items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm font-medium text-zinc-900 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
             yearLabel ? "border-blue-500 bg-blue-50/50" : "border-zinc-200 bg-white hover:border-zinc-300"
           }`}
         >
@@ -307,8 +306,8 @@ const MonthYearPicker = memo(function MonthYearPicker({
                 key={year}
                 type="button"
                 onClick={() => handleYear(year)}
-                className={`w-full px-4 py-3 text-left text-sm transition-colors hover:bg-blue-50 ${
-                  yearLabel === String(year) ? "bg-blue-50 font-medium text-blue-900" : "text-zinc-900"
+                className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
+                  yearLabel === String(year) ? "bg-blue-50 text-blue-900" : "text-zinc-900"
                 }`}
               >
                 {year}
@@ -363,7 +362,7 @@ const QuestionCard = memo(function QuestionCard({
 
       <div className="mt-6">
         {current.type === "yesno" ? (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             {[
               { value: "yes", label: "Yes" },
               { value: "no", label: "No" },
@@ -374,10 +373,10 @@ const QuestionCard = memo(function QuestionCard({
                   key={option.value}
                   type="button"
                   onClick={() => onChange(option.value)}
-                  className={`flex h-[52px] items-center justify-center rounded-2xl border px-4 py-3 text-sm font-medium shadow-sm transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+                  className={`flex h-[52px] min-w-[140px] items-center justify-center rounded-2xl border px-4 py-3 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
                     selected
-                      ? "border-blue-500 bg-blue-50/50 text-zinc-900"
-                      : "border-zinc-200 bg-white text-zinc-900 hover:border-zinc-300"
+                      ? "border-blue-500 bg-blue-50/50"
+                      : "border-zinc-200 bg-white hover:border-zinc-300"
                   }`}
                 >
                   {option.label}
@@ -386,41 +385,63 @@ const QuestionCard = memo(function QuestionCard({
             })}
           </div>
         ) : current.type === "select" && current.options ? (
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setSelectOpen((o) => !o)}
-              className={`flex h-[52px] w-full items-center justify-between rounded-2xl border px-5 py-4 text-left text-sm text-zinc-900 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
-                value
-                  ? "border-blue-500 bg-blue-50/50"
-                  : "border-zinc-200 bg-white hover:border-zinc-300"
-              }`}
-            >
-              <span className="truncate">
-                {value ? current.options.find((o) => o.value === value)?.label : "Select an option"}
-              </span>
-              <ChevronDown className={`size-5 shrink-0 text-zinc-500 transition-transform ${selectOpen ? "rotate-180" : ""}`} />
-            </button>
-            {selectOpen && (
-              <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-60 overflow-auto rounded-2xl border border-zinc-200 bg-white py-1 shadow-lg ring-1 ring-zinc-100">
-                {current.options.map((opt) => (
+          current.key === "state" ? (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setSelectOpen((o) => !o)}
+                className={`flex h-[52px] w-full items-center justify-between rounded-2xl border px-5 py-4 text-left text-sm font-medium text-zinc-900 shadow-sm transition-colors focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+                  value
+                    ? "border-blue-500 bg-blue-50/50"
+                    : "border-zinc-200 bg-white hover:border-zinc-300"
+                }`}
+              >
+                <span className="truncate">
+                  {value ? current.options.find((o) => o.value === value)?.label : "Select an option"}
+                </span>
+                <ChevronDown className={`size-5 shrink-0 text-zinc-500 transition-transform ${selectOpen ? "rotate-180" : ""}`} />
+              </button>
+              {selectOpen && (
+                <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-60 overflow-auto rounded-2xl border border-zinc-200 bg-white py-1 shadow-lg ring-1 ring-zinc-100">
+                  {current.options.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => {
+                        onChange(opt.value)
+                        setSelectOpen(false)
+                      }}
+                      className={`w-full px-5 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
+                        value === opt.value ? "bg-blue-50 text-blue-900" : "text-zinc-900"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-3">
+              {current.options.map((opt) => {
+                const selected = value === opt.value
+                return (
                   <button
                     key={opt.value}
                     type="button"
-                    onClick={() => {
-                      onChange(opt.value)
-                      setSelectOpen(false)
-                    }}
-                    className={`w-full px-5 py-3 text-left text-sm transition-colors hover:bg-blue-50 ${
-                      value === opt.value ? "bg-blue-50 font-medium text-blue-900" : "text-zinc-900"
+                    onClick={() => onChange(opt.value)}
+                    className={`flex min-h-[52px] min-w-[120px] items-center justify-center rounded-2xl border px-4 py-3 text-center text-sm font-medium text-zinc-900 shadow-sm transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+                      selected
+                        ? "border-blue-500 bg-blue-50/50"
+                        : "border-zinc-200 bg-white hover:border-zinc-300"
                     }`}
                   >
                     {opt.label}
                   </button>
-                ))}
-              </div>
-            )}
-          </div>
+                )
+              })}
+            </div>
+          )
         ) : current.type === "month" ? (
           <MonthYearPicker value={value} onChange={onChange} />
         ) : (
@@ -520,7 +541,7 @@ const YesNoGroupCard = memo(function YesNoGroupCard({
         {batch.map((q) => (
           <div key={q.key}>
             <p className="mb-2 text-sm font-medium text-black">{q.label}</p>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               {[
                 { value: "yes", label: "Yes" },
                 { value: "no", label: "No" },
@@ -532,10 +553,10 @@ const YesNoGroupCard = memo(function YesNoGroupCard({
                     key={option.value}
                     type="button"
                     onClick={() => onChange(q.key, option.value)}
-                    className={`flex h-[52px] items-center justify-center rounded-2xl border px-4 py-3 text-sm font-medium shadow-sm transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
+                    className={`flex h-[52px] min-w-[140px] items-center justify-center rounded-2xl border px-4 py-3 text-sm font-medium text-zinc-900 shadow-sm transition-all duration-200 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 ${
                       selected
-                        ? "border-blue-500 bg-blue-50/50 text-zinc-900"
-                        : "border-zinc-200 bg-white text-zinc-900 hover:border-zinc-300"
+                        ? "border-blue-500 bg-blue-50/50"
+                        : "border-zinc-200 bg-white hover:border-zinc-300"
                     }`}
                   >
                     {option.label}
@@ -643,9 +664,9 @@ export default function BusinessFundingPage() {
     : Boolean(current.required && !currentValue.trim().length)
 
   return (
-    <div className="relative min-h-svh overflow-hidden">
-      {/* Fullscreen iridescence background */}
-      <div className="absolute inset-0 -z-10">
+    <div className="relative min-h-svh">
+      {/* Fullscreen iridescence background - fixed so it stays in place when scrolling */}
+      <div className="fixed inset-0 -z-10">
         <Iridescence
           color={[1, 1, 1]}
           speed={0.5}
