@@ -69,10 +69,14 @@ export default function Iridescence({
 }: IridescenceProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
   const mousePos = useRef({ x: 0.5, y: 0.5 });
+  const propsRef = useRef({ color, speed, amplitude, mouseReact });
+  propsRef.current = { color, speed, amplitude, mouseReact };
 
   useEffect(() => {
     if (!ctnDom.current) return;
     const ctn = ctnDom.current;
+    const { color: c, speed: s, amplitude: a, mouseReact: m } = propsRef.current;
+
     const renderer = new Renderer();
     const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
@@ -99,13 +103,13 @@ export default function Iridescence({
       fragment: fragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        uColor: { value: new Color(...color) },
+        uColor: { value: new Color(...c) },
         uResolution: {
           value: new Color(gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height)
         },
         uMouse: { value: new Float32Array([mousePos.current.x, mousePos.current.y]) },
-        uAmplitude: { value: amplitude },
-        uSpeed: { value: speed }
+        uAmplitude: { value: a },
+        uSpeed: { value: s }
       }
     });
 
@@ -128,20 +132,20 @@ export default function Iridescence({
       program.uniforms.uMouse.value[0] = x;
       program.uniforms.uMouse.value[1] = y;
     }
-    if (mouseReact) {
+    if (m) {
       ctn.addEventListener('mousemove', handleMouseMove);
     }
 
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
-      if (mouseReact) {
+      if (m) {
         ctn.removeEventListener('mousemove', handleMouseMove);
       }
       ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [color, speed, amplitude, mouseReact]);
+  }, []);
 
   return <div ref={ctnDom} className="w-full h-full" {...rest} />;
 }

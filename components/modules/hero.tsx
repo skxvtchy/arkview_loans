@@ -1,8 +1,22 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
 import Iridescence from "../ui/iridesence";
 
 export function Hero() {
+  const router = useRouter();
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const email = (form.elements.namedItem("email") as HTMLInputElement)?.value?.trim();
+    if (email) {
+      router.push(`/signup?email=${encodeURIComponent(email)}`);
+    }
+  }
+
   return (
     <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#fafafa] font-sans text-zinc-900 selection:bg-blue-600 selection:text-white">
       {/* BACKGROUND LAYER */}
@@ -29,8 +43,12 @@ export function Hero() {
 
         {/* EMAIL SIGNUP */}
         <div className="mt-14 w-full max-w-md mx-auto animate-in fade-in zoom-in-95 delay-700 duration-1000 fill-mode-both px-1">
-          <form className="relative flex flex-col sm:flex-row gap-2 p-1.5 bg-white border-[1.5px] border-zinc-200 rounded-2xl sm:rounded-full shadow-2xl shadow-zinc-300/40 focus-within:border-zinc-200 transition-all">
+          <form
+            onSubmit={handleSubmit}
+            className="relative flex flex-col sm:flex-row gap-2 p-1.5 bg-white border-[1.5px] border-zinc-200 rounded-2xl sm:rounded-full shadow-2xl shadow-zinc-300/40 focus-within:border-zinc-200 transition-all"
+          >
             <input
+              name="email"
               type="email"
               placeholder="Enter your work email"
               className="hero-email-input min-w-0 flex-1 bg-transparent px-4 py-3 sm:px-6 text-base sm:text-sm text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:bg-transparent rounded-xl sm:rounded-full"
