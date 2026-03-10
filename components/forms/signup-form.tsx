@@ -15,7 +15,6 @@ export function SignupForm({
   ...props
 }: React.ComponentProps<"form"> & { defaultEmail?: string }) {
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your account</h1>
@@ -25,7 +24,17 @@ export function SignupForm({
         </div>
         <Field>
           <FieldLabel htmlFor="name">Full Name</FieldLabel>
-          <Input id="name" type="text" placeholder="John Doe" required />
+          <Input id="name" name="name" type="text" placeholder="John Doe" className="bg-white" required />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="businessName">Business name</FieldLabel>
+          <Input
+            id="businessName"
+            name="businessName"
+            type="text"
+            placeholder="Acme Inc."
+            className="bg-white"
+          />
         </Field>
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -35,29 +44,41 @@ export function SignupForm({
             type="email"
             placeholder="m@example.com"
             defaultValue={defaultEmail}
+            className="bg-white"
             required
           />
-          <FieldDescription>
+          {/* <FieldDescription>
             We&apos;ll use this to contact you. We will not share your email
             with anyone else.
-          </FieldDescription>
+          </FieldDescription> */}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="phone">Phone number</FieldLabel>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="(555) 123-4567"
+            autoComplete="tel"
+            className="bg-white"
+          />
         </Field>
         <Field>
           <FieldLabel htmlFor="password">Password</FieldLabel>
-          <Input id="password" type="password" required />
+          <Input id="password" type="password" className="bg-white" required />
           <FieldDescription>
             Must be at least 8 characters long.
           </FieldDescription>
         </Field>
         <Field>
           <FieldLabel htmlFor="confirm-password">Confirm Password</FieldLabel>
-          <Input id="confirm-password" type="password" required />
+          <Input id="confirm-password" type="password" className="bg-white" required />
           <FieldDescription>Please confirm your password.</FieldDescription>
         </Field>
         <Field>
           <Button type="submit">Create Account</Button>
         </Field>
-        <FieldSeparator>Or continue with</FieldSeparator>
+        {/* <FieldSeparator>Or continue with</FieldSeparator>
         <Field>
           <Button variant="outline" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -71,8 +92,7 @@ export function SignupForm({
           <FieldDescription className="px-6 text-center">   
             Already have an account? <a href="/login">Sign in</a>
           </FieldDescription>
-        </Field>
+        </Field> */}
       </FieldGroup>
-    </form>
   )
 }

@@ -664,7 +664,7 @@ function BusinessFundingPageInner() {
     : Boolean(current.required && !currentValue.trim().length)
 
   return (
-    <div className="relative min-h-svh">
+    <div className="relative min-h-svh overflow-x-hidden">
       {/* Fullscreen iridescence background - fixed so it stays in place when scrolling */}
       <div className="fixed inset-0 -z-10">
         <Iridescence
@@ -789,7 +789,7 @@ function BusinessFundingPageInner() {
 
 function OnboardingFallback() {
   return (
-    <div className="relative min-h-svh">
+    <div className="relative min-h-svh overflow-x-hidden">
       <div className="fixed inset-0 -z-10">
         <Iridescence color={[1, 1, 1]} speed={0.5} amplitude={0.5} mouseReact={false} />
       </div>
