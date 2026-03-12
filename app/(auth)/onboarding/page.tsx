@@ -271,19 +271,21 @@ const MonthYearPicker = memo(function MonthYearPicker({
           <ChevronDown className={`size-5 shrink-0 text-zinc-500 transition-transform ${monthOpen ? "rotate-180" : ""}`} />
         </button>
         {monthOpen && (
-          <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-56 overflow-auto rounded-2xl border border-zinc-200 bg-white py-1 shadow-lg ring-1 ring-zinc-100">
-            {MONTHS.map((month, i) => (
-              <button
-                key={month}
-                type="button"
-                onClick={() => handleMonth(i)}
-                className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
-                  monthLabel === month ? "bg-blue-50 text-blue-900" : "text-zinc-900"
-                }`}
-              >
-                {month}
-              </button>
-            ))}
+          <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-64 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-lg ring-1 ring-zinc-100">
+            <div className="max-h-64 overflow-y-auto overscroll-contain py-1">
+              {MONTHS.map((month, i) => (
+                <button
+                  key={month}
+                  type="button"
+                  onClick={() => handleMonth(i)}
+                  className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
+                    monthLabel === month ? "bg-blue-50 text-blue-900" : "text-zinc-900"
+                  }`}
+                >
+                  {month}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -300,19 +302,21 @@ const MonthYearPicker = memo(function MonthYearPicker({
           <ChevronDown className={`size-5 shrink-0 text-zinc-500 transition-transform ${yearOpen ? "rotate-180" : ""}`} />
         </button>
         {yearOpen && (
-          <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-56 overflow-auto rounded-2xl border border-zinc-200 bg-white py-1 shadow-lg ring-1 ring-zinc-100">
-            {YEARS.map((year) => (
-              <button
-                key={year}
-                type="button"
-                onClick={() => handleYear(year)}
-                className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
-                  yearLabel === String(year) ? "bg-blue-50 text-blue-900" : "text-zinc-900"
-                }`}
-              >
-                {year}
-              </button>
-            ))}
+          <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-64 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-lg ring-1 ring-zinc-100">
+            <div className="max-h-64 overflow-y-auto overscroll-contain py-1">
+              {YEARS.map((year) => (
+                <button
+                  key={year}
+                  type="button"
+                  onClick={() => handleYear(year)}
+                  className={`w-full px-4 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
+                    yearLabel === String(year) ? "bg-blue-50 text-blue-900" : "text-zinc-900"
+                  }`}
+                >
+                  {year}
+                </button>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -402,22 +406,24 @@ const QuestionCard = memo(function QuestionCard({
                 <ChevronDown className={`size-5 shrink-0 text-zinc-500 transition-transform ${selectOpen ? "rotate-180" : ""}`} />
               </button>
               {selectOpen && (
-                <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-60 overflow-auto rounded-2xl border border-zinc-200 bg-white py-1 shadow-lg ring-1 ring-zinc-100">
-                  {current.options.map((opt) => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => {
-                        onChange(opt.value)
-                        setSelectOpen(false)
-                      }}
-                      className={`w-full px-5 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
-                        value === opt.value ? "bg-blue-50 text-blue-900" : "text-zinc-900"
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+                <div className="absolute top-full left-0 right-0 z-20 mt-1 max-h-72 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-lg ring-1 ring-zinc-100">
+                  <div className="max-h-72 overflow-y-auto overscroll-contain py-1">
+                    {current.options.map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => {
+                          onChange(opt.value)
+                          setSelectOpen(false)
+                        }}
+                        className={`w-full px-5 py-3 text-left text-sm font-medium transition-colors hover:bg-blue-50 ${
+                          value === opt.value ? "bg-blue-50 text-blue-900" : "text-zinc-900"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
